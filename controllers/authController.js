@@ -50,8 +50,9 @@ module.exports.loginUser = async function (req, res){
     bcrypt.compare(password, user.password, function(err, result){
         if(result){
             let token = generateToken(user);
+            let success = req.flash("success");
             res.cookie("token", token);
-            res.render("shop", {products});
+            res.render("shop", {products, success});
         }
         else{
             req.flash("error", "Email or password incorrect");
